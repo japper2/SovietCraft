@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SovietCraft</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
     <nav id="navbar"></nav>
-    
+
     <main>
-        <section class="content">
-            <p>This is a placeholder homepage for SovietCraft. Add your content here.</p>
-        </section>
+      <section class="content">
+        <p>
+          This is a placeholder homepage for SovietCraft. Add your content here.
+        </p>
+      </section>
     </main>
 
     <script>
-        fetch('nav.html')
-            .then(response => response.text())
-            .then(html => {
-                document.getElementById('navbar').innerHTML = html;
-            })
-            .catch(err => console.warn('Navigation not found'));
+      fetch("nav.html")
+        .then((response) => response.text())
+        .then((html) => {
+          document.getElementById("navbar").innerHTML = html;
+        })
+        .catch((err) => console.warn("Navigation not found"));
     </script>
-</body>
+  </body>
 </html>
