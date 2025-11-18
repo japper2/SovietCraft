@@ -1,19 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Discord - SovietCraft</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="nav.js" defer></script>
-  </head>
-  <body>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
     <nav id="navbar"></nav>
-
+    
     <main>
-      <section class="content">
-        <p>Discord community information coming soon.</p>
-      </section>
+        <header>
+            <h1>Join Our Discord</h1>
+        </header>
+        
+        <section class="content">
+            <p>Discord community information coming soon.</p>
+        </section>
     </main>
-  </body>
+
+    <script>
+        fetch('nav.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('navbar').innerHTML = html;
+            });
+    </script>
+</body>
 </html>
