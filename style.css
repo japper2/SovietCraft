@@ -13,27 +13,47 @@
   --red-600: #a10000;
   --card: #131313;
   --card-border: #1f1f1f;
+  --radius: 8px;
+  --transition: 180ms ease;
 }
 
 body {
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Ubuntu, Cantarell,
+    "Noto Sans", Arial, "Helvetica Neue", sans-serif;
+  line-height: 1.7;
   color: var(--text);
-  background: var(--bg);
+  background: radial-gradient(
+      1000px 500px at 10% -10%,
+      rgba(204, 0, 0, 0.18),
+      rgba(0, 0, 0, 0) 60%
+    ),
+    radial-gradient(
+      900px 500px at 100% 110%,
+      rgba(204, 0, 0, 0.12),
+      rgba(0, 0, 0, 0) 60%
+    ),
+    var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 nav {
-  background: var(--red);
+  background: linear-gradient(180deg, var(--red) 0%, #b30000 100%);
   color: #fff;
   padding: 1rem;
+  border-bottom: 1px solid #8d0000;
 }
 nav a {
   color: #ffffff;
   text-decoration: none;
-  margin-right: 1rem;
+  margin-right: 0.5rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  transition: background-color var(--transition), color var(--transition);
 }
 nav a:hover {
-  color: #ffcccc;
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
 }
 nav a:focus-visible {
   outline: 2px solid #ffffff;
@@ -50,23 +70,45 @@ header {
   background: var(--card);
   padding: 2rem;
   margin-bottom: 2rem;
-  border-radius: 6px;
+  border-radius: var(--radius);
   border: 1px solid var(--card-border);
-  box-shadow: 0 8px 24px rgba(204, 0, 0, 0.15);
+  box-shadow: 0 10px 30px rgba(204, 0, 0, 0.16),
+    0 2px 0 rgba(255, 255, 255, 0.02) inset;
+  transition: box-shadow var(--transition), border-color var(--transition),
+    background-color var(--transition);
 }
 
 h1 {
   color: var(--text);
   border-bottom: 2px solid var(--red);
   padding-bottom: 0.25rem;
+  letter-spacing: 0.2px;
+}
+
+h2,
+h3 {
+  color: var(--text);
+  margin-top: 1.25rem;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.15px;
+}
+h2 {
+  border-left: 3px solid var(--red);
+  padding-left: 0.5rem;
+}
+h3 {
+  opacity: 0.95;
 }
 
 .content {
   background: var(--card);
   padding: 2rem;
-  border-radius: 6px;
+  border-radius: var(--radius);
   border: 1px solid var(--card-border);
-  box-shadow: 0 8px 24px rgba(204, 0, 0, 0.15);
+  box-shadow: 0 10px 30px rgba(204, 0, 0, 0.16),
+    0 2px 0 rgba(255, 255, 255, 0.02) inset;
+  transition: box-shadow var(--transition), border-color var(--transition),
+    background-color var(--transition);
 }
 
 /* Typography & links */
@@ -74,14 +116,26 @@ p,
 li {
   color: var(--text);
 }
+p {
+  margin: 0.75rem 0;
+}
+ul,
+ol {
+  margin: 0.75rem 0 0.75rem 1.25rem;
+}
+li + li {
+  margin-top: 0.25rem;
+}
 small {
   color: var(--muted);
 }
 a {
   color: var(--red);
+  transition: color var(--transition), text-decoration-color var(--transition);
 }
 a:hover {
   color: #ff4040;
+  text-decoration: underline;
 }
 a:focus-visible {
   outline: 2px solid var(--red);
@@ -95,15 +149,42 @@ button,
   color: #fff;
   border: 1px solid var(--red-600);
   padding: 0.6rem 1rem;
-  border-radius: 4px;
+  border-radius: 6px;
   cursor: pointer;
+  transition: transform 120ms ease-out, filter var(--transition),
+    box-shadow var(--transition);
 }
 button:hover,
 .btn:hover {
-  filter: brightness(1.1);
+  filter: brightness(1.06);
+  box-shadow: 0 6px 20px rgba(204, 0, 0, 0.25);
+  transform: translateY(-1px);
 }
 button:focus-visible,
 .btn:focus-visible {
   outline: 2px solid #fff;
   outline-offset: 2px;
+}
+button:active,
+.btn:active {
+  transform: translateY(0);
+  filter: brightness(1);
+}
+button:disabled,
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Media and misc */
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #2a2a2a, transparent);
+  margin: 1.5rem 0;
 }
