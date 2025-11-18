@@ -29,16 +29,16 @@ canvas#heart {
   --fs-h1: clamp(1.4rem, 2vw + 1.2rem, 2.2rem);
   --fs-p: clamp(1rem, 1.2vw + 0.8rem, 1.05rem);
 
-  /* blue-hour colors */
-  --bg-1: #07121f;
-  --bg-2: #0d1e2f;
+  /* black + red theme */
+  --bg-1: #0b0b0b;
+  --bg-2: #121212;
   --glass: rgba(255, 255, 255, 0.06);
   --glass-strong: rgba(255, 255, 255, 0.12);
-  --line: rgba(255, 255, 255, 0.14);
-  --text: #dbe7f3;
-  --subtext: #a9bcd5;
-  --accent: #8cc8ff; /* hover / focus */
-  --accent-weak: rgba(140, 200, 255, 0.18);
+  --line: rgba(255, 255, 255, 0.12);
+  --text: #e8e8e8;
+  --subtext: #bdbdbd;
+  --accent: #cc0000; /* hover / focus */
+  --accent-weak: rgba(204, 0, 0, 0.2);
   --nav-height: 56px; /* height reserve for fixed navbar */
 }
 
@@ -71,11 +71,21 @@ body {
 
 /* ===== Starry Melancholic Night Theme ===== */
 body {
-  background: radial-gradient(ellipse at bottom, #0b1d26 0%, #090a0f 100%);
-  color: #e5e8ef;
+  background: radial-gradient(
+      1000px 500px at 10% -10%,
+      rgba(204, 0, 0, 0.18),
+      rgba(0, 0, 0, 0) 60%
+    ),
+    radial-gradient(
+      900px 500px at 100% 110%,
+      rgba(204, 0, 0, 0.12),
+      rgba(0, 0, 0, 0) 60%
+    ),
+    linear-gradient(180deg, var(--bg-1) 0%, var(--bg-2) 100%);
+  color: var(--text);
   overflow-x: hidden;
   position: relative;
-  background-color: #0b0f1a; /* solid fallback behind gradient/safe-areas */
+  background-color: var(--bg-1); /* solid fallback behind gradient/safe-areas */
 }
 
 /* === Brighter readable text === */
@@ -382,21 +392,22 @@ li {
   display: flex;
   justify-content: center;
   gap: 8px;
-  background: rgba(10, 20, 36, 0.72);
+  background: rgba(12, 12, 12, 0.78);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  padding: 10px 0;
+  padding: 10px 10px;
   position: fixed; /* always visible like the footer */
   top: 0;
   left: 0;
   right: 0;
   min-height: var(--nav-height);
   z-index: 2;
+  border-bottom: 1px solid #2a2a2a;
   box-shadow: 0 6px 22px rgba(0, 0, 0, 0.45);
 }
 
 .navbar a {
-  color: var(--text);
+  color: #ffffff;
   text-decoration: none;
   padding: 10px 16px;
   border-radius: 6px;
@@ -405,7 +416,7 @@ li {
 
 .navbar a:hover {
   background-color: var(--accent-weak);
-  color: var(--text);
+  color: #ffffff;
   transform: translateY(-1px);
 }
 
@@ -540,7 +551,7 @@ li {
 
 /* ========== Footer (fixed) ========= */
 .footer {
-  background: rgba(6, 12, 22, 0.78);
+  background: rgba(12, 12, 12, 0.78);
   color: var(--subtext);
   border-top: 1px solid var(--line);
   box-shadow: 0 -6px 22px rgba(0, 0, 0, 0.45);
@@ -552,6 +563,25 @@ li {
   height: var(--footer-height);
   box-sizing: border-box;
   z-index: 2; /* ensure above background and below modal */
+}
+
+/* Make existing pages account for fixed navbar without adding wrappers */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px;
+  padding-top: calc(var(--nav-height) + 20px);
+  padding-bottom: calc(var(--footer-height) + 16px);
+  position: relative;
+  z-index: 1;
+}
+
+/* Global link color to match accent */
+a {
+  color: var(--accent);
+}
+a:hover {
+  color: #ff4040;
 }
 
 /* ========== Modal / Overlay (small centered card) ========= */
