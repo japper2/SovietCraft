@@ -20,6 +20,7 @@
         </div>
       </div>
     </nav>
+    <nav id="navbar"></nav>
 
     <main>
       <section class="content">
@@ -28,5 +29,14 @@
         </p>
       </section>
     </main>
+
+    <script>
+      fetch("nav.html")
+        .then((response) => response.text())
+        .then((html) => {
+          document.getElementById("navbar").innerHTML = html;
+        })
+        .catch((err) => console.warn("Navigation not found"));
+    </script>
   </body>
 </html>
