@@ -89,14 +89,14 @@ main {
   right: 0;
   z-index: 10;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start; /* align items from far left */
   gap: 8px;
   background: var(--nav-gradient), var(--nav-shine), rgba(14, 14, 14, 0.65);
   background-blend-mode: multiply, normal;
   -webkit-backdrop-filter: blur(10px) saturate(140%);
   backdrop-filter: blur(10px) saturate(140%);
   min-height: var(--nav-height);
-  padding: 10px 14px;
+  padding: 10px 16px 10px 4px; /* reduce left padding so logo touches edge */
   border-bottom: 1px solid #2a2a2a;
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55),
     0 0 0 1px rgba(255, 255, 255, 0.05) inset;
@@ -123,19 +123,56 @@ main {
   pointer-events: none;
 }
 .nav-links {
+  /* center the nav links visually while logo stays at the far left */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   gap: 8px;
+  z-index: 3;
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  padding: 4px 12px 4px 0; /* remove left padding entirely */
+  margin-right: 6px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background-color var(--transition), transform 120ms ease;
+}
+.nav-logo img {
+  display: block;
+  height: calc(var(--nav-height) - 24px);
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+  user-select: none;
+}
+.nav-logo:hover {
+  background: rgba(204, 0, 0, 0.12);
+}
+.nav-logo:active {
+  transform: scale(0.96);
+}
+.nav-logo:focus-visible {
+  outline: 2px solid #ff3a3a;
+  outline-offset: 3px;
 }
 .navbar a {
   color: #ffffff;
   text-decoration: none;
-  padding: 16px 22px; /* increased vertical padding for taller bar */
+  display: inline-flex;
+  align-items: center;
+  height: calc(var(--nav-height) - 28px); /* contained to navbar height */
+  padding: 0 22px; /* horizontal padding only */
   border-radius: 7px;
   position: relative;
   isolation: isolate;
-  --hover-bg: rgba(255, 0, 0, 0.12);
+  --hover-bg: rgba(255, 0, 0, 0.1);
   transition: background-color var(--transition), transform 120ms ease,
     color var(--transition), box-shadow var(--transition);
+  line-height: 1;
 }
 .navbar a::before {
   content: "";
@@ -325,6 +362,12 @@ a:focus-visible {
   .navbar {
     justify-content: space-between;
     padding: 10px 16px;
+  }
+  .nav-logo {
+    padding: 2px 8px 2px 2px;
+  }
+  .nav-logo img {
+    height: calc(var(--nav-height) - 30px);
   }
   .nav-burger {
     display: flex;
