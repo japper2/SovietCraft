@@ -70,15 +70,15 @@ body {
 
 /* Layout: ensure content clears fixed navbar */
 main {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 24px 20px 60px;
-  padding-top: calc(var(--nav-height) + 24px);
+  padding: 18px 18px 48px;
+  padding-top: calc(var(--nav-height) + 18px);
   flex: 1 0 auto;
   min-height: calc(100vh - var(--nav-height));
   display: flex;
   flex-direction: column;
-  justify-content: center; /* center content vertically */
+  justify-content: flex-start; /* reduce vertical centering for compactness */
 }
 
 /* Navbar */
@@ -316,6 +316,149 @@ header h1 {
 }
 .content:hover {
   box-shadow: 0 12px 38px rgba(204, 0, 0, 0.22);
+}
+
+/* Hero and buttons for homepage */
+.hero {
+  width: 100%;
+}
+.hero .content {
+  padding: 1.6rem 2.25rem; /* slightly wider horizontal padding */
+  max-width: 1100px; /* allow hero content to be wider than regular content */
+  margin: 0 auto;
+}
+.hero h1 {
+  font-size: clamp(1.8rem, 3.6vw + 0.8rem, 3rem);
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.6px;
+}
+.hero .subtitle {
+  color: var(--subtext);
+  max-width: 100ch;
+  margin: 0 auto;
+}
+
+.btn {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 8px 18px rgba(204, 0, 0, 0.08);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 26px rgba(204, 0, 0, 0.12);
+}
+.btn.secondary {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Neutral store button (not red) */
+.btn.store {
+  background: rgba(255, 255, 255, 0.03);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: none;
+}
+.btn.store:hover {
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+}
+
+/* Features grid */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 6px;
+}
+.feature {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.01),
+    rgba(255, 255, 255, 0)
+  );
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+  text-align: left;
+}
+.feature h3 {
+  margin-bottom: 6px;
+}
+.feature p {
+  color: var(--subtext);
+  font-size: 0.98rem;
+}
+
+/* Split layout: left content + right server card */
+.split {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin-top: 12px;
+}
+.split .left {
+  flex: 1 1 60%;
+}
+.split .right {
+  width: 360px;
+  max-width: 40%;
+  flex: 0 0 360px;
+}
+.server-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  border: 1px solid var(--card-border);
+  padding: 14px;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.55);
+  max-height: calc(100vh - var(--nav-height) - 120px);
+  overflow: auto;
+}
+.server-card h2 {
+  margin-top: 0;
+}
+.rules {
+  list-style: none;
+  padding-left: 0;
+  margin: 6px 0 0 0;
+}
+.rules li {
+  padding: 6px 0;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.03);
+  color: var(--subtext);
+  font-size: 0.93rem;
+}
+.rules li:last-child {
+  border-bottom: none;
+}
+.server-card code {
+  background: rgba(255, 255, 255, 0.02);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.98rem;
+}
+.muted {
+  color: var(--subtext);
+  font-size: 0.95rem;
+  margin-top: 10px;
+}
+
+@media (max-width: 980px) {
+  .split {
+    flex-direction: column-reverse;
+  }
+  .split .right {
+    width: 100%;
+    max-width: 100%;
+    flex: none;
+  }
 }
 
 /* Animated multi-accent border (optional utility) */
