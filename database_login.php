@@ -18,8 +18,15 @@
         die("Connectie mislukt: " . mysqli_connect_error());
     }
 
-    $get_naam = $_POST['naam'];
-    $get_ww  = $_POST['ww'];
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        // collect value of input field
+        $name = $_POST['fname'];
+        if (empty($name)) {
+            echo "Name is empty";
+        } else {
+            echo $name;
+        }
+    }
 
     $sql = "SELECT * FROM logins WHERE naam='$get_naam' AND ww='$get_ww'";
     $result = mysqli_query($conn, $sql);
