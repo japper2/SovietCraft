@@ -40,3 +40,44 @@
       setActive();
     });
 })();
+
+// Sidebar toggle behavior (shows the Why Play Here sidebar)
+function initSidebarToggle() {
+  const btn = document.getElementById('sidebarToggle');
+  const sidebar = document.getElementById('sidebar');
+  if (!btn || !sidebar) return;
+
+  function openSidebar(open) {
+    if (open) {
+      sidebar.classList.add('open');
+      sidebar.setAttribute('aria-hidden', 'false');
+      btn.setAttribute('aria-expanded', 'true');
+    } else {
+      sidebar.classList.remove('open');
+      sidebar.setAttribute('aria-hidden', 'true');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+  }
+
+  btn.addEventListener('click', () => openSidebar(!sidebar.classList.contains('open')));
+
+  // Close on ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') openSidebar(false);
+  });
+
+  // Close when clicking outside sidebar on small screens
+  document.addEventListener('click', (e) => {
+    if (!sidebar.classList.contains('open')) return;
+    if (window.innerWidth <= 760) {
+      if (!sidebar.contains(e.target) && e.target !== btn) openSidebar(false);
+    }
+  });
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initSidebarToggle);
+} else {
+  // If script executed after DOMContentLoaded, initialize immediately
+  initSidebarToggle();
+}

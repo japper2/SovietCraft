@@ -160,7 +160,8 @@ main {
 
 .nav-actions {
   position: absolute;
-  right: 12px;
+  /* move further left so it doesn't overlap the info button (top-right) */
+  right: 86px;
   top: 50%;
   transform: translateY(-50%);
   z-index: 4;
@@ -614,6 +615,9 @@ a:focus-visible {
   .navbar a {
     padding: 18px 18px; /* keep touch target large on mobile */
   }
+  /* restore login button to right edge on small screens so the info button
+     doesn't overlap navigation controls when space is constrained */
+  .nav-actions { right: 12px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .navbar a,
@@ -675,3 +679,169 @@ header.hero {
 header.hero {
   margin-top: 10vh;
 }
+ /* Homepage-only: remove card borders around hero text */
+      header.hero,
+      header.hero .content {
+        border: none !important;
+      }
+   
+      /* Move the entire hero block down so the image + text/buttons move together */
+      header.hero {
+        margin-top: 10vh;
+      }
+
+      /* Homepage-only: remove card-like boxes around all content inside main
+           Keep navbar untouched. This removes backgrounds, borders, shadows,
+           and rounded corners so text and images appear plain. */
+      main * {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        border-radius: 0 !important;
+      }
+
+      /* Ensure images show normally (no accidental masking) */
+      main img {
+        background: transparent !important;
+        box-shadow: none !important;
+        border: none !important;
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+      }
+
+      /* Soften and tint the hero image so it blends with the page background */
+      .hero-media {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-media::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        /* subtle warm tint to tie the image into the site's red theme */
+        background: linear-gradient(to bottom, rgba(204, 0, 0, 0.06), rgba(0,0,0,0.18));
+        pointer-events: none;
+        mix-blend-mode: overlay;
+      }
+
+      .hero-media img#carouselImage {
+        filter: saturate(0.85) contrast(0.95) brightness(0.95);
+        transition: filter 220ms ease, transform 220ms ease;
+        object-fit: cover;
+        object-position: center center;
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+/* Index-only overrides moved from inline <style> in index.html */
+.hero-media { display: none !important; }
+header.hero .subtitle, header.hero p { line-height: 1.5; }
+/* Homepage layout adjustments for panels */
+main { position: relative; }
+/* Sidebar styles (holds the Why Play Here content) */
+.sidebar {
+  position: fixed;
+  right: 0;
+  top: var(--nav-height); /* sit under the navbar */
+  bottom: 0;
+  width: 420px;
+  max-width: 72vw;
+  /* hide off-canvas to the right */
+  transform: translateX(100%);
+  transition: transform 300ms ease, box-shadow 300ms ease;
+  background-color: rgba(8,8,8,0.98);
+  color: var(--text);
+  /* shadow cast to the left when visible */
+  box-shadow: -10px 0 40px rgba(0,0,0,0.7);
+  /* place under the navbar but above content */
+  z-index: 9000;
+  overflow: auto;
+}
+.sidebar.open { transform: translateX(0); }
+.sidebar .sidebar-inner { padding: 22px; }
+.sidebar h2 {
+  font-size: clamp(1.25rem, 1.6vw + 0.9rem, 1.6rem);
+  margin: 0 0 10px 0;
+  letter-spacing: 0.5px;
+  font-weight: 700;
+}
+
+/* Align the heading with the feature card text column (icon width + gap + inner padding) */
+.sidebar h2 {
+  padding-left: calc(22px + 36px + 14px);
+}
+
+/* Cards inside panels */
+.feature-cards { list-style:none; margin:0; padding:0; display:grid; gap:12px; }
+.feature-card {
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0));
+  border:1px solid rgba(255,255,255,0.045);
+  padding:12px 14px 12px;
+  border-radius:10px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.45);
+}
+.feature-card .icon {
+  font-size:1.6rem;
+  line-height:1;
+  width: 36px;
+  height: 36px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.45));
+}
+.feature-card h3 {
+  font-size:1rem;
+  margin:0 0 4px 0;
+  font-weight:700;
+  color:#fff;
+}
+.feature-card p {
+  margin:0;
+  font-size:0.88rem;
+  line-height:1.35;
+  color:var(--subtext);
+}
+
+/* Responsive adjustments for smaller widths */
+@media (max-width: 1100px) {
+  .sidebar { width: 320px; }
+  .feature-card p { font-size:0.84rem; }
+}
+@media (max-width: 880px) {
+  .sidebar { width: 280px; }
+}
+@media (max-width: 760px) {
+  .sidebar { position:static; transform:none; width:100%; max-width:none; }
+  .sidebar h2 { padding-left: 0; }
+  main { padding-bottom: 18px; overflow:auto; }
+  html, body { overflow:auto !important; }
+}
+
+/* Info button (top-right) */
+.info-btn {
+  position: fixed;
+  right: 18px;
+  top: 14px;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: rgba(204,0,0,0.9);
+  color: #fff;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  cursor: pointer;
+  /* must sit above the navbar (z-index: 9999) to be clickable */
+  z-index: 10001;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.55);
+}
+.info-btn:focus { outline: 2px solid #ff6b6b; }
