@@ -1,4 +1,3 @@
-// Shared navbar loader & active link highlighter
 (function () {
   const current = location.pathname.split("/").pop() || "index.html";
   let host = document.getElementById("navbar");
@@ -17,7 +16,6 @@
     });
   }
 
-  // If opened directly from filesystem (file://) fetch will fail – inject fallback immediately.
   if (location.protocol === "file:") {
     host.innerHTML = FALLBACK_MARKUP;
     setActive();

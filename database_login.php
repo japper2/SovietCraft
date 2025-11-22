@@ -12,14 +12,12 @@
     $password   = "r99RFLG9aGjH3Jy7aDQM";
     $dbname     = "andrebe1_sc";
 
-    // Create connection
     $conn = mysqli_connect($servername, $username, $password, $dbname);
     if (!$conn) {
         die("Connectie mislukt: " . mysqli_connect_error());
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // collect value of input field
         $name = $_POST['fname'];
         if (empty($name)) {
             echo "Name is empty";
