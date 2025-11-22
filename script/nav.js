@@ -7,7 +7,7 @@
     document.body.insertBefore(host, document.body.firstChild);
   }
 
-  const FALLBACK_MARKUP = `\n<div class="navbar">\n  <a class="nav-logo" href="index.html" aria-label="SovietCraft home">\n    <img src="images/SovietCraFT.PNG" alt="SovietCraft Logo" />\n  </a>\n  <input type="checkbox" id="nav-toggle" />\n  <label class="nav-burger" for="nav-toggle" aria-label="Toggle navigation">\n    <span></span><span></span><span></span>\n  </label>\n  <div class="nav-links">\n    <a href="index.html">Home</a>\n    <a href="store.html">Store</a>\n    <a href="discord.html">Discord</a>\n    <a href="bluemap.html">Map</a>\n  </div>\n</div>`;
+  const FALLBACK_MARKUP = `\n<div class="navbar">\n  <a class="nav-logo" href="index.html" aria-label="SovietCraft home">\n    <img src="images/SovietCraFT.PNG" alt="SovietCraft Logo" />\n  </a>\n  <input type="checkbox" id="nav-toggle" />\n  <label class="nav-burger" for="nav-toggle" aria-label="Toggle navigation">\n    <span></span><span></span><span></span>\n  </label>\n  <div class="nav-links">\n    <a href="index.html">Home</a>\n    <a href="store.html">Store</a>\n    <a href="discord.html">Discord</a>\n    <a href="bluemap.html">Map</a>\n  </div>\n  <div class="nav-actions">\n    <a class="btn login" href="login_page.html">Login</a>\n  </div>\n</div>`;
 
   function setActive() {
     const links = host.querySelectorAll(".nav-links a");

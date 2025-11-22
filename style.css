@@ -68,6 +68,47 @@ body {
     linear-gradient(180deg, #0b0b0b 0%, #121212 100%);
 }
 
+/* Background image layer: keeps the navbar visuals unchanged while
+   placing a blurred image behind the site content. The ::before element
+   contains the image and blur; ::after adds a subtle dark overlay. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url("images/background.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  filter: blur(6px) saturate(0.95);
+  transform: scale(1.03);
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: -2;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: rgba(
+    0,
+    0,
+    0,
+    0.25
+  ); /* subtle darkening so content stays readable */
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Disable page scrolling globally. Remove or change this if you only
+   want to disable scrolling on certain pages. */
+html,
+body {
+  /* Ensure both root and body are prevented from scrolling. Use
+     !important to override any inline or third-party rules. */
+  overflow: hidden !important;
+}
+
 /* Layout: ensure content clears fixed navbar */
 main {
   max-width: 1200px;
@@ -87,40 +128,24 @@ main {
   top: 0;
   left: 0;
   right: 0;
-  z-index: 10;
+  z-index: 9999;
   display: flex;
-  justify-content: flex-start; /* align items from far left */
+  justify-content: flex-start;
   gap: 8px;
-  background: var(--nav-gradient), var(--nav-shine), rgba(14, 14, 14, 0.65);
-  background-blend-mode: multiply, normal;
-  -webkit-backdrop-filter: blur(10px) saturate(140%);
-  backdrop-filter: blur(10px) saturate(140%);
+  background: transparent;
+  -webkit-backdrop-filter: blur(8px) saturate(120%);
+  backdrop-filter: blur(8px) saturate(120%);
   min-height: var(--nav-height);
-  padding: 10px 16px 10px 4px; /* reduce left padding so logo touches edge */
-  border-bottom: 1px solid #2a2a2a;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55),
-    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
-  position: sticky;
+  padding: 10px 16px 10px 4px;
+  border-bottom: none;
+  box-shadow: none;
 }
 /* Removed bright overlay for subtler look */
 .navbar::before {
   display: none;
 }
 .navbar::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    rgba(204, 0, 0, 0.35),
-    rgba(255, 0, 0, 0.12),
-    rgba(204, 0, 0, 0.35)
-  );
-  opacity: 0.25;
-  pointer-events: none;
+  display: none;
 }
 .nav-links {
   /* center the nav links visually while logo stays at the far left */
@@ -131,6 +156,29 @@ main {
   display: flex;
   gap: 8px;
   z-index: 3;
+}
+
+.nav-actions {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+}
+.nav-actions .btn.login {
+  background: rgba(255, 255, 255, 0.03);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 8px 12px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+}
+.nav-actions .btn.login:hover {
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-2px);
 }
 .nav-logo {
   display: flex;
@@ -343,6 +391,12 @@ header h1 {
   object-fit: cover;
   display: block;
   user-select: none;
+}
+
+/* Center the focal point of the carousel image */
+.hero-media img#carouselImage {
+  object-position: center center;
+  margin: 0 auto;
 }
 .hero h1 {
   font-size: clamp(1.8rem, 3.6vw + 0.8rem, 3rem);
@@ -570,3 +624,54 @@ a:focus-visible {
   }
 }
 /* Removed old leftover light theme rules */
+/* Login button */
+/* Deprecated: login button moved into navbar as `.nav-actions .btn.login` */
+/* Force homepage to exactly fit the viewport height (no scrolling)
+         - Use the shared --nav-height so navbar spacing stays consistent
+         - Keep overflow hidden on root and body (important) */
+html,
+body {
+  height: 100vh;
+  overflow: hidden !important;
+}
+
+/* Main fills the space below the navbar and prevents internal overflow */
+main {
+  height: calc(100vh - var(--nav-height));
+  padding-top: 0; /* avoid adding extra height */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Make the hero occupy available space without causing page scroll */
+header.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Keep hero content (text/buttons) sized naturally and allow media to scale */
+.hero .content {
+  flex: 0 0 auto;
+}
+
+/* Make the media area fill the remaining hero height but not overflow */
+.hero-media {
+  flex: 1 1 auto;
+  min-height: 0; /* allow flex child to shrink properly */
+  max-height: calc(100vh - var(--nav-height) - 120px);
+}
+
+/* Ensure the carousel image scales to its container */
+.hero-media img#carouselImage {
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Move the entire hero block down so the image + text/buttons move together */
+header.hero {
+  margin-top: 10vh;
+}

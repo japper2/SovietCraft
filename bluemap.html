@@ -12,25 +12,23 @@
         height: 100%;
       }
 
-      /* Navbar styling */
-      .navbar {
-        height: 60px; /* adjust as needed */
-        background-color: #333;
-        color: white;
-        display: flex;
-        align-items: center;
-        padding: 0 20px;
-      }
-
-      /* Iframe takes full remaining height */
+      /* Keep page full-height and position the map exactly under the fixed navbar.
+         Use a fixed container that starts at `top: var(--nav-height)` so the
+         map is not covered by the navbar and there is no black gap below it. */
       .bluemap-container {
-        height: calc(100% - 60px); /* subtract navbar height */
+        position: fixed;
+        top: var(--nav-height);
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: auto;
       }
 
       .bluemap-container iframe {
         width: 100%;
         height: 100%;
         border: none;
+        display: block;
       }
     </style>
   </head>
