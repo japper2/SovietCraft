@@ -18,7 +18,8 @@
     }
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $name = $_POST['fname'];
+        $name = $_POST['name'];
+        $ww = $_POST['ww'];
         if (empty($name)) {
             echo "Name is empty";
         } else {
